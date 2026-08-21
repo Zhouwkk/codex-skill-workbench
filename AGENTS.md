@@ -9,6 +9,5 @@ This repository is the source of truth for personal Codex skill development.
 - Add `scripts/`, `references/`, `assets/`, and `agents/openai.yaml` only when the skill needs them.
 - Do not install, copy, or symlink a skill into a user-level directory unless the user explicitly requests installation.
 - Validate changed skills and run any new or modified scripts before reporting completion.
-- Keep repository-wide planning notes in `notes/`; do not add README or changelog files inside individual skill folders unless specifically required.
+- Keep repository-wide planning notes in `notes/`. Every skill intended for sharing must include a user-facing `README.md` covering installation and concrete usage; do not add changelogs or other ancillary files unless specifically required.
 - Preserve unrelated work and keep commits scoped to one skill or one repository-maintenance change.
-

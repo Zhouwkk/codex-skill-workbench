@@ -4,7 +4,7 @@
 
 ## 已包含的 Skill
 
-- [`research-os`](.agents/skills/research-os/SKILL.md)：用本地状态文档管理科研主线、远程实验、每日推进与每周复盘。
+- [`research-os`](.agents/skills/research-os/README.md)：用本地状态文档管理科研主线、远程实验、每日推进与每周复盘；查看安装方法、使用示例与数据边界。
 
 Skill 源码可以上传到 GitHub；个人研究状态、实验记录和服务器信息不属于本仓库，也不应提交到这里。
 
@@ -18,7 +18,8 @@ AGENTS.md         本项目的协作与质量约定
 
 每个 skill 都是 `.agents/skills/<skill-name>/` 下的独立目录，至少包含
 `SKILL.md`。按需增加 `agents/openai.yaml`、`scripts/`、`references/` 或
-`assets/`，不要预先创建无用途的空目录。
+`assets/`，不要预先创建无用途的空目录。准备分享的 skill 还应维护独立的
+`README.md`，向使用者说明安装、初始化、典型用法和必要的数据边界。
 
 ## 创建一个 skill
 
