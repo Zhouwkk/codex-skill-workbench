@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research OS"
+  short_description: "通过 Mac 文档管理研究状态、远程实验与每周每日推进"
+  default_prompt: "使用 $research-os 初始化 Mac 研究 Dashboard，并连接各课题的远程执行上下文。"

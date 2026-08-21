@@ -1,6 +1,12 @@
 # Skill Workbench
 
-用于创建、测试和维护个人 Codex skills 的本地项目。
+用于创建、测试、分享和维护个人 Codex skills 的项目。
+
+## 已包含的 Skill
+
+- [`research-os`](.agents/skills/research-os/SKILL.md)：用本地状态文档管理科研主线、远程实验、每日推进与每周复盘。
+
+Skill 源码可以上传到 GitHub；个人研究状态、实验记录和服务器信息不属于本仓库，也不应提交到这里。
 
 ## 目录
 
@@ -30,3 +36,6 @@ AGENTS.md         本项目的协作与质量约定
 4. 用真实请求测试触发和输出质量。
 5. 提交到 Git；成熟后再决定是否链接到用户级 skills 目录或打包为 plugin。
 
+## 使用仓库中的 Skill
+
+在 Codex 中打开本仓库时，`.agents/skills/` 下的 skills 会作为项目级 skills 被发现。要在其他项目中使用，可以将目标 skill 复制到那个项目的 `.agents/skills/`，或安装到个人 skills 目录。
