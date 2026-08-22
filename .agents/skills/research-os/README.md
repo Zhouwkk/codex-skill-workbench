@@ -15,7 +15,7 @@ Research OS 是一个面向科研工作的 Codex Skill。它不把科研管理�
 
 ```text
 使用 $skill-installer，从下面的 GitHub 地址安装 research-os：
-https://github.com/Zhouwkk/research-os-skill/tree/main/.agents/skills/research-os
+https://github.com/Zhouwkk/codex-skill-workbench/tree/main/.agents/skills/research-os
 ```
 
 也可以克隆整个仓库。在仓库目录中启动 Codex 时，Codex 会自动发现 `.agents/skills/research-os`。

@@ -5,6 +5,7 @@
 ## 已包含的 Skill
 
 - [`research-os`](.agents/skills/research-os/README.md)：用本地状态文档管理科研主线、远程实验、每日推进与每周复盘；查看安装方法、使用示例与数据边界。
+- [`blog-as-learning`](.agents/skills/blog-as-learning/README.md)：通过“探 → 学 ↔ 讲 → 写”暴露认知缺口、形成自己的理解，并把理解重构成面向读者的博客。
 
 Skill 源码可以上传到 GitHub；个人研究状态、实验记录和服务器信息不属于本仓库，也不应提交到这里。
 
