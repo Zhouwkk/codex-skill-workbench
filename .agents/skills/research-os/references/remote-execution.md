@@ -14,9 +14,12 @@ Mac control plane
                          v
 Remote execution plane
   code, data, environments, jobs, raw logs, checkpoints, large artifacts
+  optional RESEARCH_STATE.md handoff snapshot
 ```
 
 The Mac state home must remain usable when the server is offline. It should say what matters, where execution lives, what was last observed, and what to check next without mirroring the remote filesystem.
+
+When Research OS is also installed on the server, use the single-file protocol in [server-capture.md](server-capture.md). The snapshot supplements manual handoff; it does not make the server a second control plane.
 
 ## Remote Context schema
 
@@ -37,6 +40,7 @@ Add this section to a Project State only when relevant. Omit unknown or unused f
 - Artifact pointers: <remote paths for current results, logs, or checkpoints>
 - Last remote observation: <timestamp and observation source>
 - Remote next check: <one exact status or result to inspect>
+- Last imported capture: <Capture ID from RESEARCH_STATE.md, if used>
 ```
 
 ### Locator discipline
@@ -55,7 +59,7 @@ Manual handoff is the default and requires no server access by Codex.
 
 1. The Mac control plane selects a Current Question and remote Next Action.
 2. The user runs or inspects work on the server.
-3. The user returns the minimum useful evidence: result summary, relevant metric or failure, run/job ID, artifact or log path, revision when relevant, and observation time.
+3. The user returns the minimum useful evidence directly or through a server-generated `RESEARCH_STATE.md`: result summary, relevant metric or failure, run/job ID, artifact or log path, revision when relevant, and observation time.
 4. Separate the handoff into:
    - **execution status**: submitted, pending, running, completed, failed, or unknown;
    - **research feedback**: what the result shows;
@@ -96,7 +100,9 @@ Use these terms consistently:
 - **Pending**: accepted by a scheduler or queue but not running;
 - **Running**: currently executing;
 - **Completed, uninspected**: execution ended, but expected feedback has not been interpreted;
+- **Completed, inspected**: execution ended and its expected feedback has been interpreted; keep it out of Dashboard attention unless a follow-up action remains;
 - **Failed, untriaged**: execution failed, but the cause and research impact are not yet known;
+- **Failed, triaged**: execution failed and the cause or actionable next check has been identified;
 - **Blocked**: progress requires a condition outside the current executable loop;
 - **Unknown**: status has not been observed recently enough.
 

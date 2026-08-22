@@ -48,7 +48,7 @@ Use evidence, not self-judgment. Choose the most consequential category:
 - **State Failure**: state was too long, stale, contradictory, or insufficient for fast restart;
 - **Load Failure**: throughput outpaced interpretation, Secondary became another Primary, or cognitive recovery was insufficient.
 
-Classify stale server pointers, missing provenance, or confusing execution status under State Failure. Classify repeated dispatch without result interpretation under Load Failure. Do not create a separate remote-work failure category in v0.1.1.
+Classify stale server pointers, missing provenance, duplicate handoff imports, or confusing execution status under State Failure. Classify repeated dispatch without result interpretation under Load Failure. Do not create a separate remote-work failure category.
 
 Do not infer a stable pattern from one noisy incident. State the evidence count and uncertainty.
 

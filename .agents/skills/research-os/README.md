@@ -6,6 +6,7 @@ Research OS 是一个面向科研工作的 Codex Skill。它不把科研管理�
 
 - 同时推进多个科研课题，需要区分 Push、Keep-alive 和暂缓项目；
 - 代码、数据和实验运行在远程服务器，本地只维护研究判断与索引；
+- 希望直接在服务器项目中把最新实验压缩成一个可复制的状态文件；
 - 希望几天后重新进入项目时，能快速恢复上下文；
 - 希望通过每日收尾和每周复盘逐步改进自己的科研工作方式。
 
@@ -21,6 +22,8 @@ https://github.com/Zhouwkk/codex-skill-workbench/tree/main/.agents/skills/resear
 也可以克隆整个仓库。在仓库目录中启动 Codex 时，Codex 会自动发现 `.agents/skills/research-os`。
 
 如果安装后没有出现在 Skills 列表中，重启 Codex。
+
+同一个安装方法也适用于服务器上的 Codex CLI。个人级 Skill 默认可以安装到 `$HOME/.agents/skills`，从而在该用户的不同项目中使用。
 
 ## 2. 准备本地状态目录
 
@@ -149,6 +152,7 @@ Research OS 使用“两层结构”：
                          ↓
 远程执行层
   代码、数据、环境、实验任务、原始日志、模型与大型结果
+  可选：一个 RESEARCH_STATE.md 交接快照
 ```
 
 默认情况下，你在服务器上运行或检查实验，然后把最小必要反馈告诉 Codex。Research OS 会记录：
@@ -159,7 +163,73 @@ Research OS 使用“两层结构”：
 
 如果你希望 Codex 直接通过 SSH 检查某个任务或日志，需要在当次请求中明确授权，并指出服务器、项目路径和希望检查的对象。
 
-## 6. 推荐的长期使用方式
+## 6. Server Capture：在服务器上只记录最新状态
+
+如果服务器上可以运行 Codex CLI，可以安装同一个 Skill，并让它进入精简的 Server Capture 模式。这个模式不会创建 Dashboard、周计划、每日计划、Inbox 或复盘目录，只在当前服务器项目根目录维护一个：
+
+```text
+RESEARCH_STATE.md
+```
+
+第一次进入服务器项目时，可以说：
+
+```text
+使用 $research-os 进入 Server Capture 模式。
+当前目录是这个课题的项目根目录。
+只创建 RESEARCH_STATE.md，用于记录服务器端实验状态；
+不要创建 Dashboard、weekly、daily、sessions 或其他管理文件。
+```
+
+每次得到新结果后，可以说：
+
+```text
+使用 $research-os 的 Server Capture 模式更新 RESEARCH_STATE.md。
+
+这次实验：job 18432，用于比较配置 A 和 B。
+请读取 outputs/run-07/metrics.json，记录最新结果、证据位置、
+它对当前实验问题的影响，以及下一步应检查什么。
+不要运行新的实验，也不要修改代码。
+```
+
+服务器文件只保留下面这些内容：
+
+- 当前实验问题和期望反馈；
+- 最新 job/run 的执行状态；
+- 最新可解释结果及其影响；
+- workspace、revision、job ID、结果路径和观察时间；
+- 一个服务器端可立即执行的下一步。
+
+它不会决定本周 Push、今天的 Primary 或课题是否应该继续。这些仍由 Mac 上的本地控制层负责。
+
+### 把服务器状态带回本地
+
+将 `RESEARCH_STATE.md` 复制到 Mac、作为文件交给 Codex，或者直接粘贴内容，然后说：
+
+```text
+使用 $research-os，把这个 RESEARCH_STATE.md 导入本地的 <项目名称>。
+请区分执行状态和研究反馈，先判断是否是新的 Capture；
+更新对应的 Session Record、Project State、Remote Context 和 Dashboard。
+不要用服务器文件覆盖本地的 Weekly mode 或项目优先级。
+```
+
+本地导入后：
+
+- 有可解释结果时，证据进入 Session Record，结论进入 Project State；
+- 只有“任务完成”但结果未查看时，只更新 Remote Context；
+- 相同的 `Capture ID` 不会重复生成证据记录；
+- `RESEARCH_STATE.md` 仍然只是交接快照，不会成为第二份本地 Project State。
+
+完整链路是：
+
+```text
+服务器运行实验
+→ Server Capture 更新 RESEARCH_STATE.md
+→ 将单个文件复制或粘贴到 Mac
+→ 本地 Research OS 导入并更新 Project State
+→ Dashboard 反映新的整体状态
+```
+
+## 7. 推荐的长期使用方式
 
 把本地状态目录作为一个长期 Codex 项目。以后关于科研状态、实验反馈、项目想法、每日安排和周复盘，都可以在这个项目中继续沟通。
 
@@ -173,7 +243,7 @@ Research OS 会把信息分流到合适的位置：
 
 你始终保留最终决定权。Research OS 会给出默认建议，但不会替你判断一个研究方向是否值得继续或应该被另一个方向取代。
 
-## 7. 数据与隐私边界
+## 8. 数据与隐私边界
 
 这个 GitHub 仓库只保存 Skill 本身。你的本地 Research OS 状态目录不需要放进本仓库，也不应因为使用这个 Skill 而自动上传。
 
@@ -181,10 +251,12 @@ Research OS 会把信息分流到合适的位置：
 
 - 不在研究状态文档中保存密码、密钥、令牌或凭证文件；
 - 本地只保存研究所需的摘要和稳定定位信息；
+- 服务器的 `RESEARCH_STATE.md` 也只保存压缩后的状态和证据定位，不复制原始日志；
+- `RESEARCH_STATE.md` 可能包含未公开结果和服务器路径，除非明确需要，否则不要提交到公开代码仓库；
 - 大型数据、模型、日志和实验产物继续留在服务器；
 - 在公开分享状态文档前，自行移除未公开课题信息和服务器定位信息。
 
-## 8. 调用方式
+## 9. 调用方式
 
 你可以显式写出 `$research-os`，也可以直接提出与科研规划、研究状态恢复、远程实验跟踪或科研复盘相关的请求。Codex 可以根据 Skill 的描述自动选择它。首次使用和重要操作建议显式调用，便于确认正在使用正确的工作流。
 

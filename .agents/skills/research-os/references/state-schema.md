@@ -70,6 +70,7 @@ Optional stable locators for projects executed outside the Mac. Use the schema i
 - `Next action` starts with a concrete verb and identifies the immediate object, dataset, result, case set, draft, or person.
 - Keep `Last Feedback` in Session Records. Promote only its durable implications into Project State.
 - Keep remote locators in `Remote Context`; do not mix server inventory or raw log excerpts into the research-state fields.
+- When importing a server snapshot, keep its accepted `Capture ID` as `Last imported capture` in Remote Context. This prevents duplicate evidence records without making the snapshot a second Project State.
 
 ## Project lifecycle
 

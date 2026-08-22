@@ -1,13 +1,13 @@
 ---
 name: research-os
-description: Manage research projects through state-based weekly/daily planning, focused sessions, remote-experiment tracking, and evidence-based review. Use for 科研规划、科研时间安排、远程服务器实验管理、项目状态恢复、Push/Keep-alive、今日 Primary、研究 session 启动或收尾、科研周复盘，以及研究工作方式迭代. Do not use for calendar-only scheduling, generic todo lists, or academic-content analysis unrelated to the user's research workflow.
+description: Manage research projects through state-based planning, focused sessions, remote-experiment tracking, lightweight server-side state capture, and evidence-based review. Use for 科研规划、科研时间安排、远程服务器实验状态记录、RESEARCH_STATE.md 交接、本地状态恢复、Push/Keep-alive、今日 Primary、研究 session 收尾和科研周复盘. Do not use for calendar-only scheduling, generic todo lists, or academic-content analysis unrelated to the user's research workflow.
 ---
 
-# Research OS v0.1.1
+# Research OS v0.2.0
 
 ## Purpose
 
-Help the user advance research by changing research state, not by maximizing completed tasks or filling a calendar. Treat the Mac document workspace as the research control plane and remote servers as optional execution planes; do not require code, datasets, checkpoints, or large results to be copied locally. Keep two feedback loops healthy:
+Help the user advance research by changing research state, not by maximizing completed tasks or filling a calendar. Treat the Mac document workspace as the canonical research control plane and remote servers as execution planes that may keep one lightweight handoff snapshot; do not require code, datasets, checkpoints, or large results to be copied locally. Keep two feedback loops healthy:
 
 ```text
 Research: State -> Question -> Evidence -> Reflection -> New State
@@ -21,18 +21,21 @@ Use the user's language. Keep control outputs compact, give a reasoned default, 
 Infer the mode from the request and current state. Do not make the user choose a command when the intent is clear.
 
 - To create, restore, inspect, pause, resume, or update a project, read [references/state-schema.md](references/state-schema.md).
-- For a Mac Dashboard, Remote Context, server jobs, remote paths, manual result handoff, or optional SSH inspection, read [references/remote-execution.md](references/remote-execution.md).
+- When running inside a server project, updating or exporting `RESEARCH_STATE.md`, or importing that snapshot locally, read [references/server-capture.md](references/server-capture.md).
+- For a Mac Dashboard, Remote Context, remote jobs and paths, manual result handoff, or optional SSH inspection from the Mac, read [references/remote-execution.md](references/remote-execution.md).
 - For weekly allocation, Push/Keep-alive selection, or a Weekly Control Card, read [references/weekly-controller.md](references/weekly-controller.md).
 - For today's Primary, Secondary, Fallback, or Maintenance, read [references/daily-controller.md](references/daily-controller.md).
 - To start, guide, checkpoint, interrupt, or close a research session, read [references/research-loop.md](references/research-loop.md).
 - For daily state sync, weekly review, failure diagnosis, or rule evolution, read [references/review-evolution.md](references/review-evolution.md).
 - When a reusable card or record is needed, read only the relevant section of [references/output-templates.md](references/output-templates.md).
 
-If a request spans modes, follow the natural dependency order: state -> weekly -> daily -> session -> review. Load only the references needed for the current request.
+If a request spans local modes, follow the natural dependency order: state -> weekly -> daily -> session -> review. Server Capture is an isolated mode; when importing its snapshot locally, follow server capture -> state update -> Dashboard refresh. Load only the references needed for the current request.
 
 ## Resolve state before planning
 
 Use an already established Mac research-state location when one exists in the conversation or workspace. When persistent state is needed but no location has been established, ask one concise question for the desired state root; do not invent a permanent location. For a one-off plan, operate from state supplied in chat without forcing file initialization.
+
+In Server Capture mode, do not ask for or initialize a Mac state home. Use the named server project root, or the current working directory when the user identifies it as the project root, and maintain only its `RESEARCH_STATE.md`.
 
 When reading state:
 
@@ -47,6 +50,7 @@ When reading state:
 
 - Keep research judgments, priorities, questions, result summaries, and remote locators in the Mac state home.
 - Keep source code, datasets, checkpoints, raw logs, and large artifacts on their execution systems unless the user explicitly requests a copy.
+- Treat server-side `RESEARCH_STATE.md` as a portable execution snapshot, not as a second canonical Project State. It must not contain weekly allocation, daily roles, Inbox, rules, or cross-project decisions.
 - Store stable pointers such as an SSH host alias, remote workspace, repository revision, job ID, and artifact path. Never store passwords, private keys, access tokens, or secret environment values in research-state documents.
 - A remote path is not evidence. Record the observed result and its interpretation separately from its provenance pointer.
 - Treat an unverified or stale remote status as unknown, not as completed, failed, or blocked.
@@ -106,7 +110,7 @@ Do not let Inbox become a second task manager. Store only enough context to deci
 - If the user asks to begin work, move them to an executable Next Action rather than continuing abstract planning.
 - If a plan would overload the user, say so plainly and reduce scope.
 
-## v0.1 success criteria
+## v0.2 success criteria
 
 Use these criteria during review; do not optimize for raw productivity:
 
@@ -114,3 +118,4 @@ Use these criteria during review; do not optimize for raw productivity:
 2. Important projects accumulate more Meaningful Updates.
 3. Drift after or during Primary sessions decreases.
 4. Important but non-urgent projects do not remain disconnected indefinitely.
+5. A server result can be captured in one compact file and imported locally without reconstructing its provenance or duplicating planning state.
