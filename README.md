@@ -6,6 +6,7 @@
 
 - [`research-os`](.agents/skills/research-os/README.md)：用本地状态文档管理科研主线，并通过轻量 Server Capture 交接远程实验结果；查看安装方法、使用示例与数据边界。
 - [`blog-as-learning`](.agents/skills/blog-as-learning/README.md)：通过“探 → 学 ↔ 讲 → 写”暴露认知缺口、形成自己的理解，并把理解重构成面向读者的博客。
+- [`research-question-discovery`](.agents/skills/research-question-discovery/README.md)：从用户自己的科研直觉出发，通过第一性原理拆解、科学压力测试、定向证据检查和用户反思，形成清晰、可检验的 Candidate Research Question。
 
 Skill 源码可以上传到 GitHub；个人研究状态、实验记录和服务器信息不属于本仓库，也不应提交到这里。
 
