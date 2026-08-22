@@ -1,0 +1,7 @@
+interface:
+  display_name: "Research Question Discovery"
+  short_description: "从科研直觉出发，形成更本质、清晰并可检验的研究问题"
+  default_prompt: "使用 $research-question-discovery，从我的初始科研直觉出发，逐步形成一个更本质、清晰且可检验的 Research Question。"
+
+policy:
+  allow_implicit_invocation: true
