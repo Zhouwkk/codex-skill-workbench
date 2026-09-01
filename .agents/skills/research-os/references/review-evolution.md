@@ -8,7 +8,7 @@ Daily closure is a light synchronization step, not a journal or productivity sco
 
 1. Confirm that completed Primary or Secondary loops updated Project State when warranted.
 2. Triage Inbox items: connect, incubate, schedule genuine Maintenance, or discard.
-3. Check whether a Keep-alive is approaching loss of contact.
+3. Run [staleness-check.md](staleness-check.md) and surface at most one unresolved alert.
 4. Leave one Tomorrow Candidate Primary, clearly marked as provisional.
 5. Refresh Dashboard attention items from observed remote status; preserve `Unknown` when no recent observation exists.
 

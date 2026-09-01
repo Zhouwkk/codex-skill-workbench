@@ -1,9 +1,9 @@
 ---
 name: research-os
-description: Manage research projects through state-based planning, focused sessions, remote-experiment tracking, lightweight server-side state capture, and evidence-based review. Use for 科研规划、科研时间安排、远程服务器实验状态记录、RESEARCH_STATE.md 交接、本地状态恢复、Push/Keep-alive、今日 Primary、研究 session 收尾和科研周复盘. Do not use for calendar-only scheduling, generic todo lists, or academic-content analysis unrelated to the user's research workflow.
+description: Manage research projects through state-based planning, focused sessions, staleness reminders, remote-experiment tracking, lightweight server-side state capture, and evidence-based review. Use for 科研规划、科研时间安排、项目停滞检查、远程服务器实验状态记录、RESEARCH_STATE.md 交接、本地状态恢复、Push/Keep-alive、今日 Primary、研究 session 收尾和科研周复盘. Do not use for calendar-only scheduling, generic todo lists, or academic-content analysis unrelated to the user's research workflow.
 ---
 
-# Research OS v0.2.0
+# Research OS v0.2.1
 
 ## Purpose
 
@@ -27,6 +27,7 @@ Infer the mode from the request and current state. Do not make the user choose a
 - For today's Primary, Secondary, Fallback, or Maintenance, read [references/daily-controller.md](references/daily-controller.md).
 - To start, guide, checkpoint, interrupt, or close a research session, read [references/research-loop.md](references/research-loop.md).
 - For daily state sync, weekly review, failure diagnosis, or rule evolution, read [references/review-evolution.md](references/review-evolution.md).
+- Whenever a request reads persistent Mac state, also read [references/staleness-check.md](references/staleness-check.md) and run its opportunistic check. Do not run it in isolated Server Capture mode.
 - When a reusable card or record is needed, read only the relevant section of [references/output-templates.md](references/output-templates.md).
 
 If a request spans local modes, follow the natural dependency order: state -> weekly -> daily -> session -> review. Server Capture is an isolated mode; when importing its snapshot locally, follow server capture -> state update -> Dashboard refresh. Load only the references needed for the current request.
@@ -41,7 +42,7 @@ When reading state:
 
 1. Start from `Dashboard.md`, then read the active Weekly Control Card and only the Project States needed for the request.
 2. Treat Session Records as evidence, not as the current truth.
-3. Surface missing or stale fields only when they block a useful recommendation.
+3. Run the opportunistic staleness check. Surface other missing fields only when they block a useful recommendation.
 4. Never overwrite historical records to make the current plan look consistent.
 
 ## Global operating rules
@@ -77,6 +78,13 @@ When reading state:
 - Keep-alive is not a low-priority todo: it must receive at least one Meaningful Update during the week.
 - Secondary must not silently become a second full Primary.
 - Detect Load Failure when throughput increases but the user has insufficient time to interpret evidence or form conclusions.
+
+### Opportunistic staleness check
+
+- When persistent Mac state is read, silently check whether the active Weekly Card, Push, or Keep-alive has lost contact with its intended feedback loop.
+- Use role, explicit cadence, Last meaningful update, blockers, and observed remote status. Do not classify valid waiting as neglect.
+- Surface at most one highest-priority alert with concrete evidence and one smallest recovery action. If nothing warrants attention, do not add an “all clear” section unless asked.
+- This is invocation-triggered, not background automation. Never imply that Research OS can remind the user while it is not running.
 
 ### Anti-drift rule
 
@@ -117,5 +125,5 @@ Use these criteria during review; do not optimize for raw productivity:
 1. Returning to a project after several days takes only a few minutes.
 2. Important projects accumulate more Meaningful Updates.
 3. Drift after or during Primary sessions decreases.
-4. Important but non-urgent projects do not remain disconnected indefinitely.
+4. Important but non-urgent projects do not remain disconnected indefinitely without being surfaced.
 5. A server result can be captured in one compact file and imported locally without reconstructing its provenance or duplicating planning state.

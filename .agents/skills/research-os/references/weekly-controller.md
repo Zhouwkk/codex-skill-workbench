@@ -10,6 +10,7 @@ Allocate scarce cognitive capacity to the feedback loops most worth advancing. D
 
 Read:
 
+- the current date and the result of [staleness-check.md](staleness-check.md);
 - Active Project States only;
 - the prior Weekly Control Card and latest review, if available;
 - Stable and Experimental Rules;
@@ -21,6 +22,8 @@ Do not scan Paused, Completed, or every Incubating idea unless the user asks for
 ## Workflow
 
 ### 1. Scan readiness and constraints
+
+First check whether the active Weekly Control Card belongs to the current week. If it is stale, say so and reconstruct allocation from current Project States rather than carrying old roles forward silently.
 
 For each active project, assess without inventing a numeric score:
 
@@ -80,5 +83,6 @@ Use the Weekly Control Card in [output-templates.md](output-templates.md). Keep 
 - A Push that is waiting on experiments or collaborators may temporarily yield daily priority without losing weekly importance.
 - A remote job with stale or unknown status must not be treated as blocked, failed, or complete until observed; place the exact status check on Watchlist.
 - A Keep-alive that receives its Minimum Feedback early does not automatically become a Push.
+- An overdue Keep-alive should normally become the nearest complete Secondary-sized feedback loop, not a third Push.
 - If two Push projects already exceed capacity, recommend one Push plus one lighter protected line.
 - Apply at most one active Experimental Rule to weekly allocation unless the user explicitly ends or replaces the existing experiment.

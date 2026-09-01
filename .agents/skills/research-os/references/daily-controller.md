@@ -50,7 +50,7 @@ Group necessary administration so it does not interrupt Primary. Include only ob
 
 ## Workflow
 
-1. Scan readiness and blockers.
+1. Run [staleness-check.md](staleness-check.md), then scan readiness and blockers.
 2. Recommend Primary, Secondary, Fallback, and Maintenance with one-line reasons.
 3. Reference, rather than rewrite, the selected project's Current Question and Expected Feedback.
 4. Ask for override only when hidden information could materially reverse the choice; otherwise provide the default plan.
@@ -68,3 +68,4 @@ Use the Daily Control Card in [output-templates.md](output-templates.md).
 - If the user is depleted, reduce loop scope rather than pretending full capacity.
 - Once Expected Feedback is sufficient, checkpoint the Primary; do not continue because more time was reserved.
 - Do not label a remote job “done” in the research sense until its expected feedback has been inspected.
+- When the highest staleness alert is an overdue Keep-alive, prefer a Secondary-sized recovery loop when capacity allows; do not silently turn it into another Primary.

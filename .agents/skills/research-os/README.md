@@ -104,6 +104,27 @@ Research OS 会建议最多两个 Push，必要时保护一个 Keep-alive，并�
 我今天上午精力较好，但下午只有零散时间。
 ```
 
+### 自动检查长期没有进展的项目
+
+只要这次调用会读取本地 Dashboard 或 Project State，Research OS 就会顺手检查 Weekly Card、Push 和 Keep-alive 是否已经失去联系，不需要单独创建定时提醒。
+
+它会区分：
+
+- 有可执行动作但长期没有 Meaningful Update 的停滞；
+- 本周尚未激活、即将错过周期的 Keep-alive；
+- 正在等待实验、合作者或外部条件的有效 Blocker；
+- 远程状态太久没有确认，需要先检查状态而不是催促研究进度；
+- 已经过期、不能继续代表当前安排的 Weekly Card。
+
+每次最多提醒一个最值得关注的问题，并给出一个最小恢复动作。例如：
+
+```text
+Staleness alert：Inefficient Reasoning in MAS 已超过 7 天没有 Meaningful Update，
+当前没有有效 Blocker。建议将“补充 3 个边界案例”作为最近一次 Secondary。
+```
+
+这个检查只在调用 Skill 时发生。如果一段时间完全不使用 Research OS，它不会在后台主动发送通知。
+
 ### 开始一次研究 session
 
 ```text

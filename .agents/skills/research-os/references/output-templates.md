@@ -27,6 +27,9 @@ Use only the template relevant to the current mode. Remove empty fields and expl
 ## Waiting / blocked
 - ...
 
+## Staleness attention
+- <one unresolved stale card, overdue Keep-alive, stalled Push, or status check; omit when none>
+
 ## Inbox
 - <count or one short attention cue>
 ```
@@ -190,6 +193,9 @@ Regenerate this view from canonical files. Do not accumulate completed items or 
 
 ## Keep-alive risk
 - ...
+
+## Staleness alert
+- <one evidence-backed alert and smallest recovery action, or omitted>
 
 ## Tomorrow candidate
 - <project + question>, provisional
